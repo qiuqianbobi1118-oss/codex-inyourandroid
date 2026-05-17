@@ -1,0 +1,11 @@
+services:
+  codex-mobile-relay:
+    build: .
+    container_name: codex-mobile-relay
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "8787:8787"
+    volumes:
+      - ./data:/app/data

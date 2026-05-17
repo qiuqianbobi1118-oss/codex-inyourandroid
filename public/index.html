@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Codex 中继</title>
+    <meta name="theme-color" content="#17624d" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Codex中继" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/icon.svg" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div id="sheet-scrim" class="sheet-scrim" hidden></div>
+
+    <main class="app-shell">
+      <section class="main-panel">
+        <header class="topbar">
+          <div class="topbar-row">
+            <button id="project-sheet-toggle" class="pill-button" type="button">任务</button>
+            <div class="title-block">
+              <p class="eyebrow">当前任务</p>
+              <h1 id="project-title">等待桥接连接</h1>
+              <p id="project-meta" class="project-meta">连接后会在这里显示本地任务和最新状态。</p>
+            </div>
+            <button id="info-sheet-toggle" class="ghost-button" type="button">信息</button>
+          </div>
+
+          <div class="topbar-row compact">
+            <div class="status-line">
+              <span id="project-status-pill" class="status-pill">未连接</span>
+              <span id="project-updated" class="status-text">尚无最近更新</span>
+            </div>
+            <button id="refresh-button" class="ghost-button" type="button">刷新</button>
+          </div>
+        </header>
+
+        <section class="stream-panel">
+          <div id="job-status-bar" class="job-status-bar" hidden>
+            <div class="job-status-copy">
+              <strong id="job-status-title">当前没有未完成工作</strong>
+              <span id="job-status-detail">新指令会按当前项目顺序排队执行。</span>
+            </div>
+            <button id="cancel-open-work-button" class="ghost-button danger-button" type="button">取消未完成工作</button>
+          </div>
+          <button id="jump-latest" class="jump-latest" hidden type="button">有新消息，回到最新</button>
+          <div id="conversation" class="conversation"></div>
+        </section>
+
+        <form id="command-form" class="composer">
+          <label class="composer-label" for="command-input">下一步指令</label>
+          <textarea
+            id="command-input"
+            rows="2"
+            placeholder="告诉 Codex 下一步做什么..."
+          ></textarea>
+          <div class="composer-actions">
+            <span class="composer-hint">消息会默认停在最新；上滑时不会再误触发刷新。</span>
+            <button type="submit">发送</button>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <section id="project-sheet" class="sheet" aria-label="任务列表" hidden>
+      <div class="sheet-handle"></div>
+      <div class="sheet-header">
+        <div>
+          <p class="eyebrow">任务列表</p>
+          <h2>切换本地任务</h2>
+        </div>
+        <button id="close-project-sheet" class="ghost-button" type="button">关闭</button>
+      </div>
+
+      <div id="auth-banner" class="auth-banner" hidden>
+        <strong>需要访问口令</strong>
+        <p>这个设备第一次使用时输入一次口令，后面就能持续读取任务数据。</p>
+        <button id="auth-button" class="ghost-button" type="button">输入口令</button>
+      </div>
+
+      <div class="sheet-toolbar">
+        <input id="project-search" class="sheet-search" type="search" placeholder="搜索任务名或路径..." />
+        <button id="project-refresh-button" class="ghost-button" type="button">刷新</button>
+      </div>
+
+      <div class="sheet-caption">
+        <span id="project-count-text">0 个任务</span>
+        <span>来源：电脑项目清单</span>
+      </div>
+
+      <div id="project-list" class="project-list"></div>
+    </section>
+
+    <section id="info-sheet" class="sheet" aria-label="任务信息" hidden>
+      <div class="sheet-handle"></div>
+      <div class="sheet-header">
+        <div>
+          <p class="eyebrow">任务信息</p>
+          <h2 id="info-title">当前任务概览</h2>
+        </div>
+        <button id="close-info-sheet" class="ghost-button" type="button">关闭</button>
+      </div>
+
+      <div class="info-grid">
+        <article class="info-card">
+          <span class="summary-label">状态</span>
+          <strong id="info-status">未选择任务</strong>
+        </article>
+        <article class="info-card">
+          <span class="summary-label">工作区</span>
+          <strong id="info-workspace">-</strong>
+        </article>
+        <article class="info-card compact">
+          <span class="summary-label">消息数</span>
+          <strong id="summary-messages">0</strong>
+        </article>
+        <article class="info-card compact">
+          <span class="summary-label">指令数</span>
+          <strong id="summary-commands">0</strong>
+        </article>
+        <article class="info-card compact full-span">
+          <span class="summary-label">最近更新</span>
+          <strong id="summary-updated">-</strong>
+        </article>
+      </div>
+    </section>
+
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>

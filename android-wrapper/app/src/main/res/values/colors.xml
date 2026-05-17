@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <color name="relay_green">#17624D</color>
+  <color name="relay_bg">#F3EFE6</color>
+  <color name="relay_text">#1C1B18</color>
+</resources>

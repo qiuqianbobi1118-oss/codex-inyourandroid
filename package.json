@@ -1,0 +1,17 @@
+{
+  "name": "codex-inyourandroid",
+  "version": "0.2.0",
+  "private": false,
+  "description": "A phone-first relay for viewing and driving local Codex projects from Android or a mobile web app.",
+  "type": "module",
+  "scripts": {
+    "dev": "node src/server.js",
+    "start": "node src/server.js",
+    "bridge": "node src/bridge-client.js",
+    "stack": "node src/local-stack.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "ws": "^8.18.3"
+  }
+}
